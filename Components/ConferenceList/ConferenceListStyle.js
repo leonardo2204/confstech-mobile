@@ -15,11 +15,17 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: 10,
     },
     title: {
         color: '#53acfe',
         fontSize: 25,
         marginLeft: 5
-    }
+    },
+    loadMoreButtonContainer: {
+        margin: 10,
+    },
+    loadMoreButtonDivider: {
+        marginBottom: 10,
+    },
 })

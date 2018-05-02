@@ -3,24 +3,31 @@ import {
   Text,
   View,
   FlatList,
+  Button
 } from 'react-native';
 
-import { connectInfiniteHits, connectRefinementList } from 'react-instantsearch/connectors';
+import { Divider } from "react-native-elements";
+import { connectInfiniteHits } from 'react-instantsearch/connectors';
 import s from './ConferenceListStyle'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { formatDate } from '../DateRange/utils'
+import DateRange from '../DateRange/DateRange'
 
 export default connectInfiniteHits(({ hits, hasMore, refine }) => {
-  const onEndReached = function () {
-    if (hasMore) {
-      refine();
-    }
-  };
+  const renderLoadMoreFooter = () => {
+    return (hasMore &&
+      <View style={s.loadMoreButtonContainer}>
+        <Divider style={s.loadMoreButtonDivider}/>
+        <Button title={'Load more...'} onPress={() => refine()}/>
+      </View>
+    )
+  }
 
   return (
     <FlatList
       data={hits}
-      onEndReached={onEndReached}
       keyExtractor={(item, index) => item.objectID}
+      ListFooterComponent={renderLoadMoreFooter}
       renderItem={({ item }) => {
         return (
           <View style={s.container}>
@@ -39,6 +46,10 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
                 <Text>
                   {item.topics}
                 </Text>
+              </View>
+              <View style={s.iconedContainer}>
+                <MaterialIcons name='event' color={'black'} size={20} />
+                <Text> {formatDate(item.startDate, item.endDate)} </Text>
               </View>
             </View>
           </View>
