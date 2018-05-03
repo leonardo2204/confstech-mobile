@@ -49,7 +49,7 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
               </View>
               <View style={s.iconedContainer}>
                 <MaterialIcons name='event' color={'black'} size={20} />
-                <Text> {formatDate(item.startDate, item.endDate)} </Text>
+                <DateRange startDate={item.startDate} endDate={item.endDate} />
               </View>
             </View>
           </View>
