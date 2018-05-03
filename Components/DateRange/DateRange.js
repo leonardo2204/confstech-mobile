@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text } from "react-native";
-import { formatDate, generateEventJSONLD } from './utils';
+import { formatDate } from './utils';
 import PropTypes from 'prop-types'
 
-export default class DateRange extends Component {
+export default class DateRange extends PureComponent {
     render() {
         const {startDate, endDate} = this.props
         return <Text>{formatDate(startDate, endDate)} </Text>

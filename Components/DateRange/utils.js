@@ -1,6 +1,7 @@
 //credits go to @nimzco https://github.com/tech-conferences/confs.tech/blob/master/src/components/ConferenceItem/utils.js
 
-import {parse, format} from 'date-fns';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 
 export function formatDate(startDate, endDate) {
   // If specific date is not defined yet. Meaning startDate is 2018-02 for instance
