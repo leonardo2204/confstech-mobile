@@ -3,10 +3,12 @@ import {
   Text,
   View,
   FlatList,
-  Button
+  Button,
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 
-import { Divider } from "react-native-elements";
+import { Divider, Header, Icon } from "react-native-elements";
 import { connectInfiniteHits } from 'react-instantsearch/connectors';
 import s from './ConferenceListStyle'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -31,6 +33,12 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       data={hits}
       keyExtractor={(item, index) => item.objectID}
       ListFooterComponent={renderLoadMoreFooter}
+      ListHeaderComponent={<Header
+        outerContainerStyles={{ height: Platform.OS === 'ios' ? 70 : 70 - 24 }}
+        centerComponent={<Text style={{ color: 'white' }}>Confs.tech</Text>}
+        //rightComponent={<TouchableOpacity><Icon color={'white'} name={'search'} /></TouchableOpacity>} 
+        />}
+      stickyHeaderIndices={[0]}
       renderItem={({ item }) => {
         return (
           <View style={s.container}>

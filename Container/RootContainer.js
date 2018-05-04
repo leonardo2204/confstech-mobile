@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {
     View,
     StatusBar,
+    Text,
+    Platform,
+    TouchableOpacity
 } from 'react-native';
 
 import { InstantSearch } from 'react-instantsearch/native'
@@ -9,6 +12,7 @@ import Conferences from '../Components/ConferenceList/ConferenceList'
 import SearchBox from "../Components/SearchBox/SearchBox";
 import s from './RootContainerStyle'
 import Configure from 'react-instantsearch/src/widgets/Configure';
+import { Header, Icon } from 'react-native-elements';
 
 const CURRENT_YEAR = (new Date()).getYear() + 1900;
 const TODAY = Math.round(new Date().getTime() / 1000);
