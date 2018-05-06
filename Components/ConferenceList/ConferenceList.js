@@ -5,11 +5,12 @@ import {
   FlatList,
   Button,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
 import { Divider, Header, Icon } from "react-native-elements";
-import { connectInfiniteHits } from 'react-instantsearch/connectors';
+import { connectInfiniteHits, connectStateResults } from 'react-instantsearch/connectors';
 import s from './ConferenceListStyle'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { formatDate } from '../DateRange/utils'
@@ -23,10 +24,16 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
     return (hasMore &&
       <View style={s.loadMoreButtonContainer}>
         <Divider style={s.loadMoreButtonDivider} />
-        <Button title={'Load more...'} onPress={() => refine()} />
+        <MoreResultsFooter />
       </View>
     )
   }
+
+  const MoreResultsFooter = connectStateResults(
+    ({ searching }) =>
+      searching ? <ActivityIndicator size={'large'} color={'black'}/> : <Button title={'Load more...'} onPress={() => refine()} />
+  );
+  
 
   return (
     <FlatList
