@@ -12,5 +12,5 @@ export default class DateRange extends PureComponent {
 
 DateRange.propTypes = {
     startDate: PropTypes.string.isRequired,
-    endDate: PropTypes.string.isRequired,       
+    endDate: PropTypes.string.isRequired,
 }
