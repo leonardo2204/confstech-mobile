@@ -34,12 +34,6 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       data={hits}
       keyExtractor={(item, index) => item.objectID}
       ListFooterComponent={renderLoadMoreFooter}
-      ListHeaderComponent={<Header
-        outerContainerStyles={{ height: Platform.OS === 'ios' ? 70 : 70 - 24 }}
-        centerComponent={<Text style={{ color: 'white' }}>Confs.tech</Text>}
-      //rightComponent={<TouchableOpacity><Icon color={'white'} name={'filter-list'} /></TouchableOpacity>} 
-      />}
-      stickyHeaderIndices={[0]}
       renderItem={({ item }) =>
         <ConferenceItem {...item} />
       }
