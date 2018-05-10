@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     View,
-    StatusBar,
     Text,
     Platform,
     TouchableOpacity
@@ -18,10 +17,24 @@ const CURRENT_YEAR = (new Date()).getYear() + 1900;
 const TODAY = Math.round(new Date().getTime() / 1000);
 
 export default class RootContainer extends Component {
+    constructor(props) {
+        super(props)
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    }
+
+    onNavigatorEvent = (event) => {
+        if (event.type == 'NavBarButtonPress') {
+            if (event.id === 'filter') {
+                this.props.navigator.push({
+                    screen: 'confstech.filter',
+                })
+            }
+        }
+    }
+
     render() {
         return (
             <View style={s.container}>
-                <StatusBar barStyle='light-content' />
                 <InstantSearch
                     appId="29FLVJV5X9"
                     apiKey="f2534ea79a28d8469f4e81d546297d39"
