@@ -30,25 +30,18 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       searching ? <ProgressBar indeterminate width={null} borderWidth={0} color={'black'} height={3} /> : null
   );
 
-  const onEndReached = () => {
-    if (hasMore) {
-      refine();
-    }
-  };
+  // const onEndReached = () => {
+  //   if (hasMore) {
+  //     refine();
+  //   }
+  // };
 
   return (
     <FlatList
       data={hits}
       keyExtractor={(item, index) => item.objectID}
-      onEndReached={this.onEndReached}
-      ListHeaderComponent={
-        <View>
-          <Header
-            outerContainerStyles={{ height: Platform.OS === 'ios' ? 70 : 70 - 24 }}
-            centerComponent={<Text style={{ color: 'white' }}>Confs.tech</Text>}
-          //rightComponent={<TouchableOpacity><Icon color={'white'} name={'filter-list'} /></TouchableOpacity>} 
-          /><LoadingIndicator />
-        </View>}
+      ListFooterComponent={<LoadMoreFooter />}
+      ListHeaderComponent={<LoadingIndicator />}
       stickyHeaderIndices={[0]}
       renderItem={({ item }) =>
         <ConferenceItem {...item} />
