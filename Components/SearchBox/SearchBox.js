@@ -7,22 +7,16 @@ import React from 'react';
 
 import {
     TextInput,
+    Platform
 } from 'react-native';
 
 import { SearchBar } from "react-native-elements";
 
 export default connectSearchBox(({ refine, currentRefinement }) => {
-
-    const styles = {
-        marginTop: 20,
-    };
-
     return (
         <SearchBar
-            containerStyle={styles}
-            showLoading
             lightTheme
-            onChangeText={text => refine(text)}
+            onChangeText={refine}
             value={currentRefinement}
             placeholder={'Search a conference'}
             clearButtonMode={'always'}
