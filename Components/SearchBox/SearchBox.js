@@ -1,25 +1,20 @@
 import {
     connectSearchBox,
 } from 'react-instantsearch/connectors';
-// We need to add the TextInput to our import
 
 import React from 'react';
-
-import {
-    TextInput,
-    Platform
-} from 'react-native';
-
 import { SearchBar } from "react-native-elements";
+
+import s from './SearchBoxStyle'
 
 export default connectSearchBox(({ refine, currentRefinement }) => {
     return (
         <SearchBar
-            inputStyle={{backgroundColor:'white'}}
-            containerStyle={{ backgroundColor: '#FFCA04', borderTopWidth: 0, borderBottomWidth: 0 }}
+            inputStyle={s.inputStyle}
+            containerStyle={s.containerStyle}
             onChangeText={refine}
             value={currentRefinement}
-            placeholder={'Search a conference'}
+            placeholder={'Search by name, country or topics'}
             clearButtonMode={'always'}
             spellCheck={false}
             autoCorrect={false}
