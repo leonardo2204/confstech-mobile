@@ -12,7 +12,6 @@ import { Divider, Header, Icon, Button } from "react-native-elements";
 import { connectInfiniteHits, connectStateResults } from 'react-instantsearch/connectors';
 import s from './ConferenceListStyle'
 import ConferenceItem from '../ConferenceItem/ConferenceItem'
-import ProgressBar from 'react-native-progress/Bar'
 
 export default connectInfiniteHits(({ hits, hasMore, refine }) => {
 
@@ -24,24 +23,11 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       </View> : null
   );
 
-  const LoadingIndicator = connectStateResults(
-    ({ searching }) =>
-      searching ? <ProgressBar indeterminate width={null} borderWidth={0} color={'black'} height={3} /> : null
-  );
-
-  // const onEndReached = () => {
-  //   if (hasMore) {
-  //     refine();
-  //   }
-  // };
-
   return (
     <FlatList
       data={hits}
       keyExtractor={(item, index) => item.objectID}
       ListFooterComponent={<LoadMoreFooter />}
-      ListHeaderComponent={<LoadingIndicator />}
-      stickyHeaderIndices={[0]}
       renderItem={({ item }) =>
         <ConferenceItem {...item} />
       }

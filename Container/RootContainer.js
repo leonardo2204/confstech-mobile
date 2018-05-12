@@ -9,6 +9,7 @@ import {
 import { InstantSearch } from 'react-instantsearch/native'
 import Conferences from '../Components/ConferenceList/ConferenceList'
 import SearchBox from "../Components/SearchBox/SearchBox";
+import LoadingIndicator from '../Components/LoadingIndicator/LoadingIndicator';
 import s from './RootContainerStyle'
 import Configure from 'react-instantsearch/src/widgets/Configure';
 import { Header, Icon } from 'react-native-elements';
@@ -34,14 +35,15 @@ export default class RootContainer extends Component {
 
     render() {
         return (
-            <View style={s.container}>
-                <InstantSearch
-                    appId="29FLVJV5X9"
-                    apiKey="f2534ea79a28d8469f4e81d546297d39"
-                    indexName="prod_conferences">
-                    <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={10} />
-                    <Conferences />
-                </InstantSearch>
-            </View>)
+            <InstantSearch
+                appId="29FLVJV5X9"
+                apiKey="f2534ea79a28d8469f4e81d546297d39"
+                indexName="prod_conferences"
+                style={{ flexGrow: 1 }}>
+                <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={10} />
+                <SearchBox />
+                <LoadingIndicator />
+                <Conferences/>
+            </InstantSearch>)
     }
 }
