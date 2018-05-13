@@ -29,13 +29,7 @@ async function startApp() {
         screen: {
             screen: 'confstech.root',
             navigatorStyle,
-            title: 'Confs.Tech',
-            navigatorButtons: {
-                rightButtons: [{
-                    id: 'filter',
-                    icon: icons['filter'],
-                }]
-            }
+            title: 'Tech Conferences'
         }
     })
 }

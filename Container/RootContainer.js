@@ -40,7 +40,7 @@ export default class RootContainer extends Component {
                 apiKey="f2534ea79a28d8469f4e81d546297d39"
                 indexName="prod_conferences"
                 style={{ flexGrow: 1 }}>
-                <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={10} />
+                <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
                 <SearchBox />
                 <LoadingIndicator />
                 <Conferences/>
