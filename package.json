@@ -7,6 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "appcenter": "^1.5.0",
+    "appcenter-analytics": "^1.5.0",
+    "appcenter-crashes": "^1.5.0",
     "date-fns": "^1.29.0",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.1",

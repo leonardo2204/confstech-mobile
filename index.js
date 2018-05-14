@@ -12,6 +12,7 @@ const navigatorStyle = {
     navBarBackgroundColor: '#FFCA04',
     orientation: 'portrait',
     navBarButtonColor: 'black',
+    topBarElevationShadowEnabled: false,
 }
 
 async function prepareIcons() {
