@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import {
     Text,
     View,
+    TouchableOpacity,
+    Linking
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -14,13 +16,15 @@ import Twitter from '../Twitter/Twitter';
 
 export default class ConferenceItem extends PureComponent {
     render() {
-        const { name, country, city, topics, twitter, startDate, endDate } = this.props
+        const { name, country, city, topics, twitter, startDate, endDate, url } = this.props
         return (
             <View style={s.container}>
                 <View style={s.innerContainer}>
-                    <Text style={s.title}>
-                        {name}
-                    </Text>
+                    <TouchableOpacity onPress={() => Linking.openURL(url) }>
+                        <Text style={s.title}>
+                            {name}
+                        </Text>
+                    </TouchableOpacity>
                     <View style={s.iconedContainer}>
                         <MaterialIcons name='location-on' color={'black'} size={20} />
                         <Location country={country} city={city} />
