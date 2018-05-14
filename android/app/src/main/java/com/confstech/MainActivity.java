@@ -1,6 +1,14 @@
 package com.confstech;
 
-import com.reactnativenavigation.controllers.SplashActivity;
+import com.facebook.react.ReactActivity;
 
-public class MainActivity extends SplashActivity {
+import javax.annotation.Nullable;
+
+public class MainActivity extends ReactActivity {
+
+    @Nullable
+    @Override
+    protected String getMainComponentName() {
+        return "ConfsTech";
+    }
 }
