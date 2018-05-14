@@ -44,8 +44,6 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       </View> : null
   };
 
-  const cof = groupAndSortConferences(hits)
-
   return hits.length > 0 && <SectionList
     sections={groupAndSortConferences(hits)}
     renderItem={({ item }) => (<ConferenceItem {...item} />)}
