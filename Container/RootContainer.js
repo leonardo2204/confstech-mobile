@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     View,
-    StatusBar
+    StatusBar,
+    Platform
 } from 'react-native';
 
 import { InstantSearch } from 'react-instantsearch/native'
@@ -20,11 +21,11 @@ export default class RootContainer extends Component {
         return (
             <View>
                 <StatusBar backgroundColor={'#FFCA04'} barStyle={'light-content'}/>
+                {Platform.OS === 'ios' ? <View style={{height : 24, backgroundColor: '#FFCA04'}} /> : null}
                 <InstantSearch
                     appId="29FLVJV5X9"
                     apiKey="f2534ea79a28d8469f4e81d546297d39"
-                    indexName="prod_conferences"
-                    style={{ flexGrow: 1 }}>
+                    indexName="prod_conferences">
                     <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
                     <SearchBox />
                     <LoadingIndicator />

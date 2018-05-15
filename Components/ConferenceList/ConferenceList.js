@@ -2,10 +2,7 @@ import React from 'react';
 import {
   Text,
   View,
-  FlatList,
   Platform,
-  TouchableOpacity,
-  ActivityIndicator,
   SectionList
 } from 'react-native';
 
@@ -39,24 +36,27 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
 
   const LoadMoreFooter = () => {
     return hasMore ? <View style={s.loadMoreButtonContainer}>
-        <Divider style={s.loadMoreButtonDivider} />
-        <Button transparent color={'#53acfe'} title={'Load more confs...'} onPress={() => refine()} />
-      </View> : null
+      <Divider style={s.loadMoreButtonDivider} />
+      <Button transparent color={'#53acfe'} title={'Load more confs...'} onPress={() => refine()} />
+    </View> : null
   };
 
-  return hits.length > 0 && <SectionList
-    sections={groupAndSortConferences(hits)}
-    renderItem={({ item }) => (<ConferenceItem {...item} />)}
-    keyExtractor={(item) => item.uuid}
-    ListFooterComponent={<LoadMoreFooter />}
-    renderSectionHeader={({ section: { title } }) => {
-      const dates = title.split('-');
-      const month = dates[1];
-      const year = dates[0];
-      return <View style={{padding: 10, backgroundColor: 'grey'}}><Text style={{ fontWeight: 'bold' }}>
-        {format(parse(`2018/${month}/01`), 'MMMM')} - {year}
-      </Text>
-      </View>
-    }}
-  />
+  return hits.length > 0 &&
+    <SectionList
+      contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 110 + 24 : 110 }}
+      sections={groupAndSortConferences(hits)}
+      renderItem={({ item }) => (<ConferenceItem {...item} />)}
+      keyExtractor={(item) => item.uuid}
+      ListFooterComponent={<LoadMoreFooter />}
+      renderSectionHeader={({ section: { title } }) => {
+        const dates = title.split('-');
+        const month = dates[1];
+        const year = dates[0];
+        return <View style={{ padding: 10, backgroundColor: 'grey' }}>
+          <Text style={{ fontWeight: 'bold' }}>
+            {format(parse(`2018/${month}/01`), 'MMMM')} - {year}
+          </Text>
+        </View>
+      }}
+    />
 });
