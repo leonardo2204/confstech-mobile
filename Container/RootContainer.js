@@ -9,6 +9,7 @@ import { InstantSearch } from 'react-instantsearch/native'
 import Conferences from '../Components/ConferenceList/ConferenceList'
 import SearchBox from "../Components/SearchBox/SearchBox";
 import LoadingIndicator from '../Components/LoadingIndicator/LoadingIndicator';
+import ErrorIndicator from '../Components/ErrorIndicator/ErrorIndicator'
 import s from './RootContainerStyle'
 import Configure from 'react-instantsearch/src/widgets/Configure';
 import { Header, Icon } from 'react-native-elements';
@@ -29,6 +30,7 @@ export default class RootContainer extends Component {
                     <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
                     <SearchBox />
                     <LoadingIndicator />
+                    <ErrorIndicator /> 
                     <Conferences />
                 </InstantSearch>
             </View>)
