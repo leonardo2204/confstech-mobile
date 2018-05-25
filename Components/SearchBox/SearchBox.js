@@ -10,6 +10,7 @@ import s from './SearchBoxStyle'
 export default connectSearchBox(({ refine, currentRefinement }) => {
     return (
         <SearchBar
+            style={{ position: 'absolute', zIndex: 1 }}
             inputStyle={s.inputStyle}
             containerStyle={s.containerStyle}
             onChangeText={refine}

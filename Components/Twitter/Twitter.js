@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View, Alert, Linking } from "react-native";
 import { Icon } from 'react-native-elements'
 import PropTypes from 'prop-types'
 import s from './TwitterStyle'
+import Analytics from 'appcenter-analytics'
 
 export default class Twitter extends PureComponent {
 
@@ -12,10 +13,16 @@ export default class Twitter extends PureComponent {
             `Are you sure you wanna open the twitter page ${twitter}?`,
             [
               {text: 'Cancel', style: 'cancel'},
-              {text: 'OK', onPress: () => Linking.openURL(`https://twitter.com/${twitter}`)},
+              {text: 'OK', onPress: () => this.twitterOkClicked(twitter)},
             ],
             { cancelable: true }
           )
+          Analytics.trackEvent('Twitter dialog', {twitter})
+    }
+
+    twitterOkClicked = (twitter) => {
+        Linking.openURL(`https://twitter.com/${twitter}`)
+        Analytics.trackEvent('Twitter open page', {twitter})
     }
 
     render() {

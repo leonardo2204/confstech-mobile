@@ -8,6 +8,7 @@ import "../Config/ReactotronConfig";
 import DebugConfig from '../Config/DebugConfig'
 import React, { Component } from 'react';
 import RootContainer from '../Container/RootContainer'
+import codePush from 'react-native-code-push'
 
 class App extends Component {
   render() {
@@ -16,5 +17,5 @@ class App extends Component {
 }
 
 export default DebugConfig.useReactotron
-  ? console.tron.overlay(App)
-  : App
+  ? console.tron.overlay(codePush(App))
+  : codePush(App)

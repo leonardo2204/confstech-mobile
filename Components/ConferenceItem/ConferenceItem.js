@@ -13,14 +13,21 @@ import DateRange from '../DateRange/DateRange'
 import Location from '../Location/Location'
 import Topics from '../Topics/Topics'
 import Twitter from '../Twitter/Twitter';
+import Analytics from 'appcenter-analytics'
 
 export default class ConferenceItem extends PureComponent {
+    
+    openPageAndTrack = (url) => {
+        Linking.openURL(url)
+        Analytics.trackEvent('Event page click', {url})
+    }
+    
     render() {
         const { name, country, city, topics, twitter, startDate, endDate, url } = this.props
         return (
             <View style={s.container}>
                 <View style={s.innerContainer}>
-                    <TouchableOpacity onPress={() => Linking.openURL(url) }>
+                    <TouchableOpacity onPress={() =>this.openPageAndTrack(url) }>
                         <Text style={s.title}>
                             {name}
                         </Text>
