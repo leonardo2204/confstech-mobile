@@ -27,23 +27,21 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       );
     });
 
-    const out = Object.keys(confs).map((key) => {
+    return Object.keys(confs).map((key) => {
       return Object.assign({}, { title: key, data: confs[key] })
     })
-
-    return out;
   }
 
   const LoadMoreFooter = () => {
-    return hasMore ? <View style={s.loadMoreButtonContainer}>
+    return hasMore && <View style={s.loadMoreButtonContainer}>
       <Divider style={s.loadMoreButtonDivider} />
-      <Button transparent color={'#53acfe'} title={'Load more confs...'} onPress={() => refine()} />
-    </View> : null
+      <Button clear titleStyle={{color: '#53acfe'}} title={'Load more confs...'} onPress={() => refine()} />
+    </View>
   };
 
   return hits.length > 0 &&
     <SectionList
-      contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 110 + 24 : 110 }}
+      contentContainerStyle={{ paddingBottom: Platform.OS === 'ios' ? 110 + 90 : 110 }}
       sections={groupAndSortConferences(hits)}
       renderItem={({ item }) => (<ConferenceItem {...item} />)}
       keyExtractor={(item) => item.uuid}
@@ -52,7 +50,7 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
         const dates = title.split('-');
         const month = dates[1];
         const year = dates[0];
-        return <View style={{ padding: 10, backgroundColor: 'grey' }}>
+        return <View style={{ padding: 10, backgroundColor: '#FFCA04' }}>
           <Text style={{ fontWeight: 'bold' }}>
             {format(parse(`2018/${month}/01`), 'MMMM')} - {year}
           </Text>

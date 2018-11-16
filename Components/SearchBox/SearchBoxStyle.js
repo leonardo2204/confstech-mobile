@@ -7,7 +7,7 @@ export default StyleSheet.create({
         backgroundColor: 'white'
     },
     containerStyle: {
-        backgroundColor: '#FFCA04',
+        backgroundColor: 'white',
         borderTopWidth: 0,
         borderBottomWidth: 0
     }
