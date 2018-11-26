@@ -1,10 +1,9 @@
 import React from "react";
 import { Text, View, Platform, SectionList } from "react-native";
 
-import { filter, groupBy, sortBy as _sortBy } from "lodash";
+import { groupBy, sortBy as _sortBy } from "lodash";
 import format from "date-fns/format/index";
 import parse from "date-fns/parse/index";
-import { Divider, Header, Icon, Button } from "react-native-elements";
 import { connectInfiniteHits } from "react-instantsearch/connectors";
 import s from "./ConferenceListStyle";
 import ConferenceItem from "../ConferenceItem/ConferenceItem";
@@ -27,24 +26,6 @@ export default connectInfiniteHits(({ hits, hasMore, refine }) => {
       );
     });
   };
-
-  // const LoadMoreFooter = () => {
-  //   return (
-  //     hasMore && (
-  //       <View style={s.loadMoreButtonContainer}>
-  //         <Divider style={s.loadMoreButtonDivider} />{" "}
-  //         <Button
-  //           clear
-  //           titleStyle={{
-  //             color: "#53acfe"
-  //           }}
-  //           title={"Load more confs..."}
-  //           onPress={() => refine()}
-  //         />{" "}
-  //       </View>
-  //     )
-  //   );
-  // };
 
   const onEndReached = () => {
     if (hasMore) refine();

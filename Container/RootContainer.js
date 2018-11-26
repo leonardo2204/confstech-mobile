@@ -16,23 +16,35 @@ class RootContainer extends Component {
   render() {
     return (
       <View>
-        <SafeAreaView />
-        <InstantSearch
-          appId="29FLVJV5X9"
-          apiKey="f2534ea79a28d8469f4e81d546297d39"
-          indexName="prod_conferences"
-          searchState={this.props.filter}
-          onSearchStateChange={this.props.applyFilter}
-        >
-          <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
-          <SearchBox />
-          <CheckBox title="Filters" checked={this.props.hasFilter} onPress={() => this.props.toggleFilterModal() } />
-          <LoadingIndicator />
-          <Conferences />
-          <VirtualRefinementList attribute={"country"} />
-          <VirtualRefinementList attribute={"topics"} />
-          <FilterOverlay />
-        </InstantSearch>
+        <SafeAreaView>
+          <InstantSearch
+            appId="29FLVJV5X9"
+            apiKey="f2534ea79a28d8469f4e81d546297d39"
+            indexName="prod_conferences"
+            searchState={this.props.filter}
+            onSearchStateChange={this.props.applyFilter}
+          >
+            <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
+            <SearchBox />
+            <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
+              <CheckBox
+                title="Topics"
+                checked={this.props.hasFilterTopics}
+                onPress={() => this.props.toggleFilterModal("topics")}
+              />
+              <CheckBox
+                title="Country"
+                checked={this.props.hasFilterCountry}
+                onPress={() => this.props.toggleFilterModal("country")}
+              />
+            </View>
+            <LoadingIndicator />
+            <Conferences />
+            <VirtualRefinementList attribute={"country"} />
+            <VirtualRefinementList attribute={"topics"} />
+            <FilterOverlay />
+          </InstantSearch>
+        </SafeAreaView>
       </View>
     );
   }
@@ -43,20 +55,21 @@ const VirtualRefinementList = connectRefinementList(() => null);
 const mapDispatchToProps = dispatch => {
   return {
     applyFilter: filter => dispatch(applyFilter(filter)),
-    toggleFilterModal: _ => dispatch(toggleFilterModal())
+    toggleFilterModal: attribute => dispatch(toggleFilterModal(attribute))
   };
 };
 
 const mapStateToProps = state => {
   return {
     filter: state.filter.filter,
-    hasFilter: hasFilter(state.filter.filter),
+    hasFilterCountry: hasFilter(state.filter.filter, "country"),
+    hasFilterTopics: hasFilter(state.filter.filter, "topics")
   };
 };
 
-const hasFilter = filter => {
-    return !!filter.refinementList.topics || !!filter.refinementList.country
-}
+const hasFilter = (filter, attribute) => {
+  return !!filter.refinementList[attribute];
+};
 
 export default connect(
   mapStateToProps,
