@@ -3,7 +3,7 @@ import { Text, View, FlatList } from "react-native";
 import { connectRefinementList } from "react-instantsearch/connectors";
 import { ListItem } from "react-native-elements";
 
-const RefinementList = connectRefinementList(({ refine, items, attribute }) => (
+const RefinementList = connectRefinementList(({ refine, items }) => (
   <FlatList
     data={items}
     keyExtractor={(item, _index) => item.label}
