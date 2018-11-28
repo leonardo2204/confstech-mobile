@@ -28,11 +28,11 @@ const INITIAL_STATE = Immutable({
 export function algoliaFilter(state = INITIAL_STATE, action) {
     switch (action.type) {
         case APPLY_FILTER:
-            return state.merge({
+            return Object.assign({}, state, {
                 filter: action.filter
             })
         case OPEN_MODAL:
-            return state.merge({
+            return Object.assign({}, state, {
                 isOpen: !state.isOpen,
                 attribute: action.attribute
             })

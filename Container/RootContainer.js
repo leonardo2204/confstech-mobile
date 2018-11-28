@@ -8,7 +8,7 @@ import FilterOverlay from "../Components/FilterOverlay/FilterOverlay";
 import { connect } from "react-redux";
 import { applyFilter, toggleFilterModal } from "../Redux/RootContainerRedux";
 import { connectRefinementList } from "react-instantsearch/connectors";
-import { CheckBox } from "react-native-elements";
+import { CheckBox, Badge, Icon } from "react-native-elements";
 
 const TODAY = Math.round(new Date().getTime() / 1000);
 
@@ -26,19 +26,72 @@ class RootContainer extends Component {
           >
             <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
             <SearchBox />
-            <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
-              <CheckBox
-                title="Topics"
-                checked={this.props.hasFilterTopics}
-                onPress={() => this.props.toggleFilterModal("topics")}
-              />
-              <CheckBox
-                title="Country"
-                checked={this.props.hasFilterCountry}
-                onPress={() => this.props.toggleFilterModal("country")}
-              />
+            <View
+              style={{
+                backgroundColor: "#FFDD5E",
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 10
+              }}
+            >
+              <Icon name="filter-list" />
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  flex: 1
+                }}
+              >
+                <CheckBox
+                  title="Topics"
+                  checked={this.props.hasFilterTopics > 0}
+                  uncheckedIcon={
+                    <Badge
+                      value={0}
+                      containerStyle={{ backgroundColor: "#FFCA04" }}
+                      textStyle={{ color: "black" }}
+                    />
+                  }
+                  containerStyle={{
+                    backgroundColor: "#FFE998",
+                    borderColor: "#FFE998"
+                  }}
+                  checkedIcon={
+                    <Badge
+                      value={this.props.hasFilterTopics}
+                      containerStyle={{ backgroundColor: "#FFCA04" }}
+                      textStyle={{ color: "black" }}
+                    />
+                  }
+                  onPress={() => this.props.toggleFilterModal("topics")}
+                />
+                <CheckBox
+                  title="Countries"
+                  checked={this.props.hasFilterCountry > 0}
+                  uncheckedIcon={
+                    <Badge
+                      value={0}
+                      containerStyle={{ backgroundColor: "#FFCA04" }}
+                      textStyle={{ color: "black" }}
+                    />
+                  }
+                  containerStyle={{
+                    backgroundColor: "#FFE998",
+                    borderColor: "#FFE998"
+                  }}
+                  checkedIcon={
+                    <Badge
+                      value={this.props.hasFilterCountry}
+                      containerStyle={{ backgroundColor: "#FFCA04" }}
+                      textStyle={{ color: "black" }}
+                    />
+                  }
+                  onPress={() => this.props.toggleFilterModal("country")}
+                />
+              </View>
+              <LoadingIndicator />
             </View>
-            <LoadingIndicator />
             <Conferences />
             <VirtualRefinementList attribute={"country"} />
             <VirtualRefinementList attribute={"topics"} />
@@ -68,7 +121,10 @@ const mapStateToProps = state => {
 };
 
 const hasFilter = (filter, attribute) => {
-  return !!filter.refinementList[attribute];
+  return (
+    !!filter.refinementList[attribute] &&
+    filter.refinementList[attribute].length
+  );
 };
 
 export default connect(

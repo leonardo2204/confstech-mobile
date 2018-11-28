@@ -1,10 +1,14 @@
 import React from "react";
-import { ScrollView } from "react-native";
 import { Overlay } from "react-native-elements";
+import { ActivityIndicator } from "react-native";
 import Refinement from "../Refinement/Refinement";
 import { connect } from "react-redux";
 import { InstantSearch, Configure } from "react-instantsearch/native";
 import { applyFilter, toggleFilterModal } from "../../Redux/RootContainerRedux";
+import {
+  connectRefinementList,
+  connectStateResults
+} from "react-instantsearch/connectors";
 
 const TODAY = Math.round(new Date().getTime() / 1000);
 
@@ -13,8 +17,7 @@ class FilterOverlay extends React.PureComponent {
     return (
       <Overlay
         isVisible={this.props.filterModalToggle}
-        windowBackgroundColor="rgba(255, 255, 255, .5)"
-        overlayBackgroundColor="grey"
+        height="auto"
         onBackdropPress={() => this.props.toggleFilterModal()}
       >
         <InstantSearch
@@ -25,15 +28,25 @@ class FilterOverlay extends React.PureComponent {
           onSearchStateChange={this.props.applyFilter}
         >
           <Configure filters={`startDateUnix>${TODAY}`} hitsPerPage={15} />
-          <Refinement
-            attribute={this.props.attribute}
-            title={this.props.attribute === "topics" ? "Topics" : "Country"}
-          />
+          <LoadingIndicator />
+          <Refinement attribute={this.props.attribute} />
+          <VirtualRefinementList attribute={"country"} />
+          <VirtualRefinementList attribute={"topics"} />
         </InstantSearch>
       </Overlay>
     );
   }
 }
+
+const getTitle = attribute => {
+  return attribute === 'topics' ? 'Topics' : 'Countries'
+}
+
+const LoadingIndicator = connectStateResults(({ searching }) =>
+  searching ? <ActivityIndicator size='large'/> : null
+);
+
+const VirtualRefinementList = connectRefinementList(() => null);
 
 const mapDispatchToProps = dispatch => {
   return {
