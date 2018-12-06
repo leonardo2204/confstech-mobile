@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Platform, SectionList } from "react-native";
+import { Text, View, Platform, SectionList, Dimensions } from "react-native";
 
 import { groupBy, sortBy as _sortBy } from "lodash";
 import format from "date-fns/format/index";

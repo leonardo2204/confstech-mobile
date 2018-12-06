@@ -34,7 +34,7 @@ class RootContainer extends Component {
                 paddingLeft: 10
               }}
             >
-              <Icon name="filter-list" />
+              
               <View
                 style={{
                   justifyContent: "center",
@@ -90,8 +90,8 @@ class RootContainer extends Component {
                   onPress={() => this.props.toggleFilterModal("country")}
                 />
               </View>
-              <LoadingIndicator />
             </View>
+            <LoadingIndicator />
             <Conferences />
             <VirtualRefinementList attribute={"country"} />
             <VirtualRefinementList attribute={"topics"} />
